@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FilterStrategy.Bll.Implementation;
+using FilterStrategy.Bll.Implementation.FreightValidStrategy;
 using FilterStrategy.Bll.Interface;
+using FilterStrategy.Bll.Interface.FreightValidStrategy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +32,10 @@ namespace FilterStrategy.Api
 
 			services.AddScoped<IGenereteInvoice, GenerateInvoice>();
 			services.AddScoped<IFreight, Freight>();
+
+			services.AddScoped<IFreightSearchStrategy, FreightSearchStrategy>();
+			services.AddScoped<ITypeFreightSearch, ValidFreight>();
+			services.AddScoped<ITypeFreightSearch, LossFreight>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

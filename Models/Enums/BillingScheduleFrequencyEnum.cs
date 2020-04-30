@@ -7,6 +7,9 @@ namespace Models.Enums
 {
 	public enum BillingScheduleFrequencyEnum
 	{
+		[Display(Name = "Nenhum")]
+		None = 0,
+
 		[Display(Name = "Diário")]
 		Daily = 1,
 

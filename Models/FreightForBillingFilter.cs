@@ -16,5 +16,6 @@ namespace Models
 		public int? PreInvoiceId { get; set; }
 		public bool UseFreightSubstitute { get; set; } = false;
 		public bool ActiveBillingResearch { get; set; }
+		public BillingScheduleTypeEnum? Type { get; set; }
 	}
 }
