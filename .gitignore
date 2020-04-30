@@ -6,3 +6,5 @@
 /FilterStrategy.Bll/obj
 /FilterStrategy.Bll.Test/obj
 /Models/obj
+/.vs/FilterStrategy/DesignTimeBuild
+/FilterStrategy.Bll.Test/bin/Debug/netcoreapp3.0
