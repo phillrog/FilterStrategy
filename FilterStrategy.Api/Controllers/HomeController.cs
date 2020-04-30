@@ -3,35 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FilterStrategy.Bll.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Models;
 
 namespace FilterStrategy.Api.Controllers
 {
+	[Route("api/[controller]")]
 	[ApiController]
-	[Route("[controller]")]
-	public class WeatherForecastController : ControllerBase
+	public class HomeController : ControllerBase
 	{
-		private static readonly string[] Summaries = new[]
-		{
-			"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-		};
-
-		private readonly ILogger<WeatherForecastController> _logger;
 		private readonly IGenereteInvoice _generateInvoice;
 
-		public WeatherForecastController(ILogger<WeatherForecastController> logger, IGenereteInvoice generateInvoice)
+		public HomeController(IGenereteInvoice GenerateInvoice)
 		{
-			_logger = logger;
-			_generateInvoice = generateInvoice;
+			_generateInvoice = GenerateInvoice;
 		}
-
 
 		[HttpGet]
 		public IActionResult Get()
 		{
-			return Ok("Funcionando");
+				return Ok("Funcionando");		
 		}
 
 		[HttpPost]
@@ -42,7 +34,7 @@ namespace FilterStrategy.Api.Controllers
 
 			await _generateInvoice.GenerateAsync(filter);
 
-			if (filter.BillingType == "3")
+			if (filter.BillingType == "2")
 				return Ok("Gerado com sucesso a fatura com fretes de perda");
 			else
 				return Ok("Gerado com sucesso a fatura");

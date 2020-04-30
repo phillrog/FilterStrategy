@@ -29,14 +29,17 @@ namespace FilterStrategy.Bll.Test
 		[Fact]
 		public void Deve_Encontrar_Fretes_Situacao_Perda()
 		{
+			var filter = new List<FreightInvoiceGenerateModel>() {
+				new FreightInvoiceGenerateModel(1, 2, 3, 4, 5, 6)
+			};
 			var (expectedResultA, expectedResultB) = (new List<FreightInvoiceGenerateModel> { new FreightInvoiceGenerateModel(1,2,3,4,5,6)}, 
 													 new List<FreightInvoiceGenerateModel> { new FreightInvoiceGenerateModel(7, 8, 9, 10, 11, 12) });
 
-			_lossFreightMock.Setup(a => a.Frequency).Returns(BillingScheduleFrequencyEnum.None);
-			_lossFreightMock.Setup(a => a.Type).Returns(BillingScheduleTypeEnum.AutomaticLoss);
-			_lossFreightMock.Setup(a => a.FindAsync()).ReturnsAsync((expectedResultA, expectedResultB));
+			_lossFreightMock.Setup(a => a.Frequency).Returns(new List<BillingScheduleFrequencyEnum> { BillingScheduleFrequencyEnum.None });
+			_lossFreightMock.Setup(a => a.Type).Returns(new List<BillingScheduleTypeEnum> { BillingScheduleTypeEnum.AutomaticLoss });
+			_lossFreightMock.Setup(a => a.FindAsync(filter)).ReturnsAsync((expectedResultA, expectedResultB));
 
-			var (resultA, resultB) = _freightSearchStrategy.FindAsync(BillingScheduleFrequencyEnum.None, BillingScheduleTypeEnum.AutomaticLoss).GetAwaiter().GetResult();
+			var (resultA, resultB) = _freightSearchStrategy.FindAsync(filter, BillingScheduleFrequencyEnum.None, BillingScheduleTypeEnum.AutomaticLoss).GetAwaiter().GetResult();
 
 			Assert.True(resultA.Count > 0 && resultB.Count > 0); 
 		}
@@ -44,14 +47,18 @@ namespace FilterStrategy.Bll.Test
 		[Fact]
 		public void Deve_Encontrar_Fretes_Validos()
 		{
+			var filter = new List<FreightInvoiceGenerateModel>() {
+				new FreightInvoiceGenerateModel(1, 2, 3, 4, 5, 6)
+			};
+
 			var (expectedResultA, expectedResultB) = (new List<FreightInvoiceGenerateModel> { new FreightInvoiceGenerateModel(1, 2, 3, 4, 5, 6) },
 													 new List<FreightInvoiceGenerateModel> { new FreightInvoiceGenerateModel(7, 8, 9, 10, 11, 12) });
 
-			_validFreightMock.Setup(a => a.Frequency).Returns(BillingScheduleFrequencyEnum.Programming);
-			_validFreightMock.Setup(a => a.Type).Returns(BillingScheduleTypeEnum.Automatic);
-			_validFreightMock.Setup(a => a.FindAsync()).ReturnsAsync((expectedResultA, expectedResultB));
+			_validFreightMock.Setup(a => a.Frequency).Returns(new List<BillingScheduleFrequencyEnum> { BillingScheduleFrequencyEnum.None });
+			_validFreightMock.Setup(a => a.Type).Returns(new List<BillingScheduleTypeEnum> { BillingScheduleTypeEnum.AutomaticLoss });
+			_validFreightMock.Setup(a => a.FindAsync(filter)).ReturnsAsync((expectedResultA, expectedResultB));
 
-			var (resultA, resultB) = _freightSearchStrategy.FindAsync(BillingScheduleFrequencyEnum.Programming, BillingScheduleTypeEnum.Automatic).GetAwaiter().GetResult();
+			var (resultA, resultB) = _freightSearchStrategy.FindAsync(filter,BillingScheduleFrequencyEnum.Programming, BillingScheduleTypeEnum.Automatic).GetAwaiter().GetResult();
 
 			Assert.True(resultA.Count > 0 && resultB.Count > 0);
 		}

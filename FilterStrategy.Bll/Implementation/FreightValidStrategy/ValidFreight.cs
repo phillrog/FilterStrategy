@@ -14,21 +14,23 @@ namespace FilterStrategy.Bll.Implementation.FreightValidStrategy
 	{
 		private readonly IFreight _freight;
 
-		public BillingScheduleFrequencyEnum Frequency => Enum.GetValues(typeof(BillingScheduleFrequencyEnum))
+		public List<BillingScheduleFrequencyEnum> Frequency => Enum.GetValues(typeof(BillingScheduleFrequencyEnum))
 																.Cast<BillingScheduleFrequencyEnum>()
-																.FirstOrDefault(a => !a.Equals(BillingScheduleFrequencyEnum.None));
+																.Where(a => !a.Equals(BillingScheduleFrequencyEnum.None))
+																.ToList();
 
-		public BillingScheduleTypeEnum Type => Enum.GetValues(typeof(BillingScheduleTypeEnum))
+		public List<BillingScheduleTypeEnum> Type => Enum.GetValues(typeof(BillingScheduleTypeEnum))
 																.Cast<BillingScheduleTypeEnum>()
-																.FirstOrDefault(a => !a.Equals(BillingScheduleTypeEnum.AutomaticLoss));
+																.Where(a => !a.Equals(BillingScheduleTypeEnum.AutomaticLoss))
+																.ToList();
 		public ValidFreight(IFreight freight )
 		{
 			_freight = freight;
 		}
 
-		public async Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync()
+		public async Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync(List<FreightInvoiceGenerateModel> filter)
 		{
-			return await _freight.Valids();
+			return await _freight.Valids(filter);
 		}
 	}
 }

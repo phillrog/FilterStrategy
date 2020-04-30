@@ -9,7 +9,7 @@ namespace FilterStrategy.Bll.Interface
 	public interface IFreight
 	{
 		Task<List<FreightInvoiceGenerateModel>> GenerateFreightsModelForAutomaticBillingAsync(FreightForBillingFilter filterModel);
-		Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> Valids();
-		Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> Loss();
+		Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> Valids(List<FreightInvoiceGenerateModel> freights);
+		Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> Loss(List<FreightInvoiceGenerateModel> freights);
 	}
 }

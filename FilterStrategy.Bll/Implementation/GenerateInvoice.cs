@@ -28,7 +28,7 @@ namespace FilterStrategy.Bll.Implementation
 
 			if (freights != null && freights.Count > 0)
 			{
-				var (ableForBilling, invalidForBilling) = await _freightSearchStrategy.FindAsync(
+				var (ableForBilling, invalidForBilling) = await _freightSearchStrategy.FindAsync(freights,
 					(BillingScheduleFrequencyEnum)Enum.Parse(typeof(BillingScheduleFrequencyEnum), filter.BillingFrequency),
 					(BillingScheduleTypeEnum)Enum.Parse(typeof(BillingScheduleTypeEnum), filter.BillingType));
 			}

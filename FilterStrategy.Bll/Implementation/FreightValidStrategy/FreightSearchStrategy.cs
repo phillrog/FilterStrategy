@@ -17,9 +17,10 @@ namespace FilterStrategy.Bll.Implementation.FreightValidStrategy
 			_typeSearch = typeSearch;
 		}
 
-		public async Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync(BillingScheduleFrequencyEnum frequency, BillingScheduleTypeEnum type)
+		public async Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync(List<FreightInvoiceGenerateModel> filter, 
+			BillingScheduleFrequencyEnum frequency, BillingScheduleTypeEnum type)
 		{
-			return await _typeSearch.Single(t => t.Frequency == frequency && t.Type == type).FindAsync();
+			return await _typeSearch.Single(t => t.Frequency.Contains(frequency) && t.Type.Contains(type)).FindAsync(filter);
 		}
 	}
 }

@@ -9,8 +9,8 @@ namespace FilterStrategy.Bll.Interface.FreightValidStrategy
 {
 	public interface ITypeFreightSearch
 	{
-		public BillingScheduleFrequencyEnum Frequency { get; }
-		public BillingScheduleTypeEnum Type { get; }
-		Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync();
+		public List<BillingScheduleFrequencyEnum> Frequency { get; }
+		public List<BillingScheduleTypeEnum> Type { get; }
+		Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync(List<FreightInvoiceGenerateModel> filter);
 	}
 }
