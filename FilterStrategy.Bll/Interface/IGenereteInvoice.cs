@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace FilterStrategy.Bll.Interface
 {
-	public interface IGenereateInvoice
+	public interface IGenereteInvoice
 	{
 		Task GenerateAsync(AutomaticBillingCustomerEvent filter);
 	}

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilterStrategy.Bll
+namespace FilterStrategy.Bll.Implementation
 {
-	public class GenerateInvoice : IGenereateInvoice
+	public class GenerateInvoice : IGenereteInvoice
 	{
 		private readonly IFreight _freight;
 

@@ -8,3 +8,7 @@
 /Models/obj
 /.vs/FilterStrategy/DesignTimeBuild
 /FilterStrategy.Bll.Test/bin/Debug/netcoreapp3.0
+/FilterStrategy.Api/bin/Debug/netcoreapp3.0
+/FilterStrategy.Api/obj
+/FilterStrategy.Bll/bin/Debug/netcoreapp3.0
+/Models/bin/Debug/netcoreapp3.0
