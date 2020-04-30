@@ -1,4 +1,5 @@
-﻿using Models.Enums;
+﻿using Models;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,6 @@ namespace FilterStrategy.Bll.Interface.FreightValidStrategy
 	{
 		public BillingScheduleFrequencyEnum Frequency { get; }
 		public BillingScheduleTypeEnum Type { get; }
-		Task Find();
+		Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync();
 	}
 }

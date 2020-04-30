@@ -1,4 +1,5 @@
 ﻿using FilterStrategy.Bll.Interface.FreightValidStrategy;
+using Models;
 using Models.Enums;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace FilterStrategy.Bll.Implementation.FreightValidStrategy
 			_typeSearch = typeSearch;
 		}
 
-		public Task Find(BillingScheduleFrequencyEnum frequency, BillingScheduleTypeEnum type)
+		public Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync(BillingScheduleFrequencyEnum frequency, BillingScheduleTypeEnum type)
 		{
-			return _typeSearch.Single(t => t.Frequency == frequency && t.Type == type).Find();
+			return _typeSearch.Single(t => t.Frequency == frequency && t.Type == type).FindAsync();
 		}
 	}
 }

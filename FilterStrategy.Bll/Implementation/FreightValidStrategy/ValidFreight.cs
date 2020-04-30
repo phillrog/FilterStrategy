@@ -1,5 +1,6 @@
 ﻿using FilterStrategy.Bll.Interface;
 using FilterStrategy.Bll.Interface.FreightValidStrategy;
+using Models;
 using Models.Enums;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,9 @@ namespace FilterStrategy.Bll.Implementation.FreightValidStrategy
 			_freight = freight;
 		}
 
-		public Task Find()
+		public async Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync()
 		{
-			throw new NotImplementedException();
+			return await _freight.Valids();
 		}
 	}
 }

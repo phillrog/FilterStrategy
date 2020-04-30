@@ -1,5 +1,7 @@
 ﻿using FilterStrategy.Bll.Interface;
+using FilterStrategy.Bll.Interface.FreightValidStrategy;
 using Models;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,10 +12,12 @@ namespace FilterStrategy.Bll.Implementation
 	public class GenerateInvoice : IGenereteInvoice
 	{
 		private readonly IFreight _freight;
+		private readonly IFreightSearchStrategy _freightSearchStrategy;
 
-		public GenerateInvoice(IFreight freight)
+		public GenerateInvoice(IFreight freight, IFreightSearchStrategy freightSearchStrategy)
 		{
 			_freight = freight;
+			_freightSearchStrategy = freightSearchStrategy;
 		}
 
 		public async Task GenerateAsync(AutomaticBillingCustomerEvent filter)
@@ -24,8 +28,9 @@ namespace FilterStrategy.Bll.Implementation
 
 			if (freights != null && freights.Count > 0)
 			{
-				List<FreightInvoiceGenerateModel> ableForBilling = new List<FreightInvoiceGenerateModel>();
-				List<FreightInvoiceGenerateModel> invalidForBilling = new List<FreightInvoiceGenerateModel>();
+				var (ableForBilling, invalidForBilling) = await _freightSearchStrategy.FindAsync(
+					(BillingScheduleFrequencyEnum)Enum.Parse(typeof(BillingScheduleFrequencyEnum), filter.BillingFrequency),
+					(BillingScheduleTypeEnum)Enum.Parse(typeof(BillingScheduleTypeEnum), filter.BillingType));
 			}
 
 			// ... continue process to generate invoice
