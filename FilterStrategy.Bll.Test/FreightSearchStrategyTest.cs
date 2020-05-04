@@ -62,5 +62,27 @@ namespace FilterStrategy.Bll.Test
 
 			Assert.True(resultA.Count > 0 && resultB.Count > 0);
 		}
+
+
+		[Fact]
+		public void Deve_Ocorrer_Erro_Fretes_Situacao_Perda()
+		{
+			var filter = new List<FreightInvoiceGenerateModel>() {
+
+			};
+			var (expectedResultA, expectedResultB) = (new List<FreightInvoiceGenerateModel> { new FreightInvoiceGenerateModel(1, 2, 3, 4, 5, 6) },
+													 new List<FreightInvoiceGenerateModel> { new FreightInvoiceGenerateModel(7, 8, 9, 10, 11, 12) });
+			
+			_validFreightMock.Setup(a => a.Frequency).Returns(new List<BillingScheduleFrequencyEnum> { BillingScheduleFrequencyEnum.Daily });
+			_validFreightMock.Setup(a => a.Type).Returns(new List<BillingScheduleTypeEnum> { BillingScheduleTypeEnum.Automatic });
+			_lossFreightMock.Setup(a => a.Frequency).Returns(new List<BillingScheduleFrequencyEnum> { BillingScheduleFrequencyEnum.None });
+			_lossFreightMock.Setup(a => a.Type).Returns(new List<BillingScheduleTypeEnum> { BillingScheduleTypeEnum.AutomaticLoss });
+
+			_lossFreightMock.Setup(a => a.FindAsync(filter)).ReturnsAsync(() => new LossFreight(_freight.Object).FindAsync(filter).GetAwaiter().GetResult());
+
+			var (resultA, resultB) = _freightSearchStrategy.FindAsync(filter, BillingScheduleFrequencyEnum.None, BillingScheduleTypeEnum.AutomaticLoss).GetAwaiter().GetResult();
+
+			_lossFreightMock.VerifyAll();
+		}
 	}
 }

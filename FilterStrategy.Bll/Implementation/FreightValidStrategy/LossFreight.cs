@@ -30,6 +30,8 @@ namespace FilterStrategy.Bll.Implementation.FreightValidStrategy
 
 		public async Task<(List<FreightInvoiceGenerateModel>, List<FreightInvoiceGenerateModel>)> FindAsync(List<FreightInvoiceGenerateModel> filter)
 		{
+			if (filter.Count == 0)
+				throw new Exception("Informe um filtro");
 			return await _freight.Loss(filter);
 		}
 	}
